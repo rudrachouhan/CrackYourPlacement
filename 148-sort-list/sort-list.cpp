@@ -11,28 +11,28 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        if(head==NULL)
+        if(!head)
         return NULL;
 
+        vector<int> ans;
+
         ListNode* temp = head;
-        ListNode* ans = sortList(head->next);
 
-        temp->next = NULL;
-        ListNode* temp2 = ans;
-        ListNode* prev=NULL;
-        while(temp2!=NULL && temp->val > temp2->val){
-            prev=temp2;
-            temp2=temp2->next;
-        }
-        if(prev){
-        prev->next = temp;
-        temp->next = temp2;
-        }
-        else{
-            temp->next = temp2;
-            ans = temp;
+        while(temp!=NULL){
+            ans.push_back(temp->val);
+            temp=temp->next;
         }
 
-        return ans;
+        sort(ans.begin(),ans.end());
+
+        temp = head;
+        int i=0;
+        while(i<ans.size()){
+            temp->val = ans[i++];
+            temp=temp->next;
+        }
+
+        return head;
+
     }
 };
